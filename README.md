@@ -1,2 +1,2 @@
 # node-rest-shop
-Shop restful api made with node, express and mongodb
+Shop RESTful API made with node, express and mongodb
