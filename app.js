@@ -19,9 +19,14 @@ mongoose.connect('mongodb+srv://Gundavri:'
 // Deprecation warning
 // mongoose.Promise = global.Promise;
 
+// Middleware for logs
 app.use(morgan('dev'));
+// Middleware to make 'uploads' folder publicaly available
+app.use('/uploads', express.static('uploads'));
+// Middleware to parse incoming requests
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+// Middleware to put headers for Access Controls
 app.use(cors());
 
 
