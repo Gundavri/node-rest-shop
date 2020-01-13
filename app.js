@@ -34,7 +34,6 @@ app.use(bodyParser.json());
 // Middleware to put headers for Access Controls
 app.use(cors());
 
-
 // Routes which handle requests
 app.use('/products', productRoutes);
 app.use('/orders', orderRoutes);
