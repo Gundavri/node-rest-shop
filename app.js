@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
@@ -20,6 +22,7 @@ mongoose.connect('mongodb+srv://Gundavri:'
 
 // Deprecation warning
 // mongoose.Promise = global.Promise;
+
 
 // Middleware for logs
 app.use(morgan('dev'));

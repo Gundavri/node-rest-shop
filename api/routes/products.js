@@ -18,7 +18,6 @@ const fileFilter = (req, file, cb) => {
     } else {
         cb(null, false);
     }
-
 //To reject a file
 //  cb(null, false);
 //To accept a file
@@ -64,30 +63,37 @@ router.get('/', (req, res, next) => {
 
 router.post('/', upload.single('productImage'),(req, res, next) => {
     console.log(req.file);
-    const product = new Product({
-        _id: new mongoose.Types.ObjectId(),
-        name: req.body.name,
-        price: req.body.price,
-        productImage: req.file.path
-    });
-    product.save().then(result => {
-        console.log(result);
-        res.status(201).json({
-            message: 'Created product successfully',
-            createdProduct: {
-                name: result.name,
-                price: result.price,
-                _id: result._id,
-                request: {
-                    type: 'GET',
-                    url: "http://localhost:3000/products/" + result._id
+    if(req.file){
+        const product = new Product({
+            _id: new mongoose.Types.ObjectId(),
+            name: req.body.name,
+            price: req.body.price,
+            productImage: req.file.path
+        });
+        product.save().then(result => {
+            console.log(result);
+            res.status(201).json({
+                message: 'Created product successfully',
+                createdProduct: {
+                    name: result.name,
+                    price: result.price,
+                    _id: result._id,
+                    request: {
+                        type: 'GET',
+                        url: "http://localhost:3000/products/" + result._id
+                    }
                 }
-            }
-        })
-    }).catch(err => {
-        console.log(err);
-        res.status(500).json({error: err})
-    });
+            })
+        }).catch(err => {
+            console.log(err);
+            res.status(500).json({error: err})
+        });
+    } else {
+        res.status(400).json({
+            message: "can't find image"
+        });
+    };
+    
 });
 
 
